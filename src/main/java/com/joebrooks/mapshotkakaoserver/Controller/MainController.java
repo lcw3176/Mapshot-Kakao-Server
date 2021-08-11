@@ -22,7 +22,7 @@ import java.io.File;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/")
+@RequestMapping("/maps")
 public class MainController {
 
     @GetMapping
