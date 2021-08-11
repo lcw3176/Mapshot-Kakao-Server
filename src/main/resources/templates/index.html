@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<span id="checker"></span>
+<div id="map">
+
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bad65396cbc898fd3b09544f7e3891ee"></script>
+<script>
+  var container = document.getElementById('map'),
+          options = {
+            center: new kakao.maps.LatLng(37.56582458204849, 126.98152754607541),
+            level: 2,
+            draggable:false
+          };
+
+  var map = new kakao.maps.Map(container, options);
+  map.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
+
+  container.style.width = 3000 + 'px';
+  container.style.height = 3000 + "px";
+  map.relayout();
+
+  kakao.maps.event.addListener(map, 'tilesloaded', function() {
+    document.getElementById("checker").setAttribute("id", "checker-true");
+  });
+
+
+
+
+</script>
+</body>
+</html>
