@@ -6,7 +6,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,12 +29,12 @@ public class MainController {
         StringBuilder sb = new StringBuilder();
         sb.append("https://mapshotproxyserver.herokuapp.com/html?lat=11&lng=11");
 
-        String path = new ClassPathResource("/static/driver/chromedriver.exe").getFile().getPath();
-        System.setProperty("webdriver.chrome.driver", path);
+        System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_PATH"));
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
+        options.setBinary(System.getenv("GOOGLE_CHROME_BIN"));
 
         ChromeDrvierEX chromedriverEX = new ChromeDrvierEX(options);
         WebDriverWait webDriverWait = new WebDriverWait(chromedriverEX, 30);
