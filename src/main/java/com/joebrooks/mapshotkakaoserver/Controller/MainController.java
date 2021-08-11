@@ -31,10 +31,8 @@ public class MainController {
         sb.append("http://localhost:8080/html?lat=11&lng=11");
 
         String path = new ClassPathResource("/static/driver/chromedriver.exe").getFile().getAbsolutePath();
-        System.out.println(path);
         System.setProperty("webdriver.chrome.driver", path);
 
-        // 2. WebDriver 옵션 설정
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
