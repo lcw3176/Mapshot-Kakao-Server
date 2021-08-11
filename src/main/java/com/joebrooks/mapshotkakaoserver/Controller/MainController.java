@@ -28,7 +28,7 @@ public class MainController {
     @GetMapping
     public ResponseEntity home() throws Exception {
         StringBuilder sb = new StringBuilder();
-        sb.append("http://localhost:8080/html?lat=11&lng=11");
+        sb.append("https://mapshotproxyserver.herokuapp.com/html?lat=11&lng=11");
 
         String path = new ClassPathResource("/static/driver/chromedriver.exe").getFile().getAbsolutePath();
         System.setProperty("webdriver.chrome.driver", path);
