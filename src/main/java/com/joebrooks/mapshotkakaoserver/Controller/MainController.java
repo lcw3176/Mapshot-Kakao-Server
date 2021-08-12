@@ -29,11 +29,13 @@ public class MainController {
         StringBuilder sb = new StringBuilder();
         sb.append("https://mapshotproxyserver.herokuapp.com/html?lat=11&lng=11");
 
+
         System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_PATH"));
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
+        options.addArguments("--disable-gpu");
         options.setBinary(System.getenv("GOOGLE_CHROME_BIN"));
 
         ChromeDrvierEX chromedriverEX = new ChromeDrvierEX(options);
