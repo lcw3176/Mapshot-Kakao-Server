@@ -22,30 +22,44 @@
   var lng = parseFloat([[${lng}]]);
   /*]]>*/
 
-  var container = document.getElementById('map'),
-          options = {
+  var width;
+  var zoomLevel;
+  switch (level){
+    case 1:
+      zoomLevel = 2;
+      width = 5000;
+      break;
+    case 2:
+      zoomLevel = 2;
+      width = 8000;
+      break;
+    case 5:
+      zoomLevel = 4;
+      width = 5000;
+    case 10:
+      zoomLevel = 5;
+      width = 5000;
+    default:
+      break;
+  }
+  var container = document.getElementById('map');
+  var options = {
             center: new kakao.maps.LatLng(lat, lng),
-            level: level,
+            level: zoomLevel,
             draggable:false
           };
+  container.style.height = width + "px";
+  container.style.width = width + "px";
 
   var map = new kakao.maps.Map(container, options);
   map.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
 
-  container.style.width = 2000 + 'px';
-  container.style.height = 2000 + "px";
+
   map.relayout();
 
   kakao.maps.event.addListener(map, 'tilesloaded', function() {
     document.getElementById("checker").setAttribute("id", "checker-true");
   });
-
-  function getElementByXpath(path) {
-    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-  }
-
-
-
 
 </script>
 </body>
