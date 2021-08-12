@@ -36,6 +36,7 @@ public class MainController {
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-gpu");
+        options.addArguments("--disable-dev-shm-usage");
         options.setBinary(System.getenv("GOOGLE_CHROME_BIN"));
 
         ChromeDrvierEX chromedriverEX = new ChromeDrvierEX(options);
