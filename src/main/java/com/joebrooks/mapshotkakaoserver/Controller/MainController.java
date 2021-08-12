@@ -1,6 +1,7 @@
 package com.joebrooks.mapshotkakaoserver.Controller;
 
 import com.joebrooks.mapshotkakaoserver.Utils.ChromeDrvierEX;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -18,6 +19,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.nio.file.Files;
 
 @CrossOrigin("*")
 @RestController
@@ -45,16 +47,16 @@ public class MainController {
 
 
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
-        File srcFile = chromedriverEX.getFullScreenshotAs(OutputType.FILE);
+        byte[] srcFile = chromedriverEX.getFullScreenshotAs(OutputType.BYTES);
 
-        BufferedImage beforeImg = ImageIO.read(srcFile);
-        BufferedImage afterImg = new BufferedImage(beforeImg.getWidth(), beforeImg.getHeight(), BufferedImage.TYPE_INT_RGB);
-
-        afterImg.createGraphics().drawImage(beforeImg, 0, 0, Color.white, null);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(afterImg, "jpg", outputStream);
+//        BufferedImage beforeImg = ImageIO.read(srcFile);
+//        BufferedImage afterImg = new BufferedImage(beforeImg.getWidth(), beforeImg.getHeight(), BufferedImage.TYPE_INT_RGB);
+//
+//        afterImg.createGraphics().drawImage(beforeImg, 0, 0, Color.white, null);
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        ImageIO.write(afterImg, "jpg", outputStream);
 
         chromedriverEX.quit();
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(outputStream.toByteArray());
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(srcFile);
     }
 }
