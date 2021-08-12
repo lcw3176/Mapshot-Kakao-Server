@@ -30,7 +30,7 @@ public class ChromeDrvierEX extends ChromeDriver {
         defineCommand.invoke(super.getCommandExecutor(), "sendCommand", cmd);
     }
 
-    public <X> X getFullScreenshotAs(OutputType<X> outputType) throws Exception {
+    public <X> X getFullScreenshotAs(OutputType<X> outputType) {
         Object metrics = sendEvaluate(
                 "({" +
                         "width: Math.max(window.innerWidth,document.body.scrollWidth,document.documentElement.scrollWidth)|0," +

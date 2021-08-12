@@ -37,7 +37,6 @@
   map.relayout();
 
   kakao.maps.event.addListener(map, 'tilesloaded', function() {
-    getElementByXpath("/html/body/div/div[2]/div[2]/div").innerText = "국토지리정보원";
     document.getElementById("checker").setAttribute("id", "checker-true");
   });
 
