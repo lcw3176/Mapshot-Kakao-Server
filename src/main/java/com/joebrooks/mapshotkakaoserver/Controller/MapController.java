@@ -4,14 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "https://mapshotproxyserver.herokuapp.com")
 @Controller
-@RequestMapping("/html")
+@RequestMapping("/map")
 public class MapController {
     @GetMapping
-    public String returnHtml(@RequestParam("lat") float lat,
-                             @RequestParam("lng") float lng,
-                             @RequestParam("level") int level,
+    public String getMaps(@RequestParam("lat") String lat,
+                             @RequestParam("lng") String lng,
+                             @RequestParam("level") String level,
                              Model model){
 
         model.addAttribute("lat", lat);

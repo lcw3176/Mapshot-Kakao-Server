@@ -8,9 +8,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "https://mapshot.netlify.app, https://testservermapshot.netlify.app")
 @RestController
-@RequestMapping("/maps")
+@RequestMapping("/main")
 public class MainController {
 
     private EXDriverService driverService;
@@ -20,11 +20,11 @@ public class MainController {
     }
 
     @GetMapping
-    public ResponseEntity home(@RequestParam("lat") float lat,
-                               @RequestParam("lng") float lng,
-                               @RequestParam("level") int level) throws Exception {
+    public ResponseEntity getMapCapture(@RequestParam("lat") String lat,
+                               @RequestParam("lng") String lng,
+                               @RequestParam("level") String level) {
         StringBuilder sb = new StringBuilder();
-        sb.append("https://mapshotproxyserver.herokuapp.com/html");
+        sb.append("https://mapshotproxyserver.herokuapp.com/map");
         sb.append("?lat=");
         sb.append(lat);
         sb.append("&lng=");
