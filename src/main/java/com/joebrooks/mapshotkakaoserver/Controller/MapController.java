@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.*;
 public class MapController {
     @GetMapping
     public String getMaps(@RequestParam("lat") String lat,
-                             @RequestParam("lng") String lng,
-                             @RequestParam("level") String level,
-                             Model model){
+                          @RequestParam("lng") String lng,
+                          @RequestParam("level") String level,
+                          @RequestParam("type") String type,
+                          Model model){
 
         model.addAttribute("lat", lat);
         model.addAttribute("lng", lng);
         model.addAttribute("level", level);
+        model.addAttribute("type", type);
 
         return "index";
     }

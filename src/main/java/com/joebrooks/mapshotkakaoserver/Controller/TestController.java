@@ -23,7 +23,9 @@ public class TestController {
     @GetMapping
     public ResponseEntity getMapCapture(@RequestParam("lat") String lat,
                                         @RequestParam("lng") String lng,
-                                        @RequestParam("level") String level) {
+                                        @RequestParam("level") String level,
+                                        @RequestParam("type") String type) {
+
         StringBuilder sb = new StringBuilder();
         sb.append("https://mapshotproxyserver.herokuapp.com/map");
         sb.append("?lat=");
@@ -32,6 +34,8 @@ public class TestController {
         sb.append(lng);
         sb.append("&level=");
         sb.append(level);
+        sb.append("&type=");
+        sb.append(type);
 
         driverService.getDriver().get(sb.toString());
         driverService.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
