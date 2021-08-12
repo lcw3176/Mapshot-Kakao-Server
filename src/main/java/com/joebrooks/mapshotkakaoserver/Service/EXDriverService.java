@@ -19,16 +19,16 @@ public class EXDriverService{
         this.waiter = waiter;
     }
 
-    public WebDriverWait getWaiter() throws Exception {
+    public WebDriverWait getWaiter() {
         return waiter.getWaiter();
     }
 
-    public ChromeDrvierEX getDriver() throws Exception {
+    public ChromeDrvierEX getDriver() {
         return drivers.getDriver();
     }
 
     @PreDestroy
-    public void close() throws Exception {
+    public void close() {
         drivers.getDriver().quit();
     }
 
