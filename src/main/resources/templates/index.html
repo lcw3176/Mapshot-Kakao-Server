@@ -14,24 +14,36 @@
 </html>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bad65396cbc898fd3b09544f7e3891ee"></script>
-<script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+
+  var level = parseInt([[${level}]]);
+  var lat = parseFloat([[${lat}]]);
+  var lng = parseFloat([[${lng}]]);
+  /*]]>*/
+
   var container = document.getElementById('map'),
           options = {
-            center: new kakao.maps.LatLng(37.56582458204849, 126.98152754607541),
-            level: 2,
+            center: new kakao.maps.LatLng(lat, lng),
+            level: level,
             draggable:false
           };
 
   var map = new kakao.maps.Map(container, options);
   map.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
 
-  container.style.width = 3000 + 'px';
-  container.style.height = 3000 + "px";
+  container.style.width = 2000 + 'px';
+  container.style.height = 2000 + "px";
   map.relayout();
 
   kakao.maps.event.addListener(map, 'tilesloaded', function() {
+    getElementByXpath("/html/body/div/div[2]/div[2]/div").innerText = "국토지리정보원";
     document.getElementById("checker").setAttribute("id", "checker-true");
   });
+
+  function getElementByXpath(path) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  }
 
 
 
