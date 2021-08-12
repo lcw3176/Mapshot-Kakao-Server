@@ -39,7 +39,7 @@ public class ChromeDrvierEX extends ChromeDriver {
                         "mobile: typeof window.orientation !== 'undefined'" +
                         "})");
         sendCommand("Emulation.setDeviceMetricsOverride", metrics);
-        Object result = sendCommand("Page.captureScreenshot", ImmutableMap.of("format", "png", "fromSurface", true));
+        Object result = sendCommand("Page.captureScreenshot", ImmutableMap.of("format", "jpeg", "fromSurface", true));
         sendCommand("Emulation.clearDeviceMetricsOverride", ImmutableMap.of());
         String base64EncodedPng = (String)((Map<String, ?>)result).get("data");
         return outputType.convertFromBase64Png(base64EncodedPng);
