@@ -32,12 +32,11 @@ public class MainController {
         sb.append(lng);
         sb.append("&level=");
         sb.append(level);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin", "https://mapshot.netlify.app");
+
         driverService.getDriver().get(sb.toString());
         driverService.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
         byte[] srcFile = driverService.getDriver().getFullScreenshotAs(OutputType.BYTES);
 
-        return ResponseEntity.ok().headers(headers).contentType(MediaType.IMAGE_JPEG).body(srcFile);
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(srcFile);
     }
 }
