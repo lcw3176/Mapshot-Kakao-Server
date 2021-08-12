@@ -6,10 +6,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
@@ -23,9 +20,17 @@ public class MainController {
     }
 
     @GetMapping
-    public ResponseEntity home() throws Exception {
+    public ResponseEntity home(@RequestParam("lat") float lat,
+                               @RequestParam("lng") float lng,
+                               @RequestParam("level") int level) throws Exception {
         StringBuilder sb = new StringBuilder();
-        sb.append("https://mapshotproxyserver.herokuapp.com/html?lat=11&lng=11");
+        sb.append("https://mapshotproxyserver.herokuapp.com/html");
+        sb.append("?lat=");
+        sb.append(lat);
+        sb.append("&lng=");
+        sb.append(lng);
+        sb.append("&level=");
+        sb.append(level);
 
         driverService.getDriver().get(sb.toString());
         driverService.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
