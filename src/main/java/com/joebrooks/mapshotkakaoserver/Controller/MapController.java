@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "https://mapshot.netlify.app, https://testservermapshot.netlify.app")
+@CrossOrigin(origins = "https://mapshotproxyserver.herokuapp.com")
 @Controller
 @RequestMapping("/map")
 public class MapController {
