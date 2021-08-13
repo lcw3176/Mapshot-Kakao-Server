@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("https://mapshot.netlify.app")
 @RestController
 @RequestMapping("/main")
 public class MainController {
