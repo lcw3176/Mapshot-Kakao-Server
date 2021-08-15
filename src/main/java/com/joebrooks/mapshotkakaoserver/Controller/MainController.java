@@ -44,7 +44,7 @@ public class MainController {
 
         //Switch to new tab
         ArrayList<String> tabs = new ArrayList<String> (service.getDriver().getWindowHandles());
-        service.getDriver().switchTo().window(tabs.get(-1));
+        service.getDriver().switchTo().window(tabs.get(tabs.size() - 1));
         service.getDriver().get(sb.toString());
         service.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
 
