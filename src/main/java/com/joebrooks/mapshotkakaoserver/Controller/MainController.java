@@ -1,10 +1,8 @@
 package com.joebrooks.mapshotkakaoserver.Controller;
 
-import com.joebrooks.mapshotkakaoserver.Services.EXDriverService;
 import com.joebrooks.mapshotkakaoserver.Utils.ChromeDrvierEX;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,19 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.Future;
-
 @CrossOrigin("https://mapshot.netlify.app")
 @RestController
 @RequestMapping("/main")
 public class MainController {
-
-    private EXDriverService exDriverService;
-
-    public MainController(EXDriverService exDriverService){
-        this.exDriverService = exDriverService;
-    }
-
 
     @GetMapping
     public ResponseEntity getMapCapture(@RequestParam("lat") String lat,
@@ -43,27 +32,24 @@ public class MainController {
         sb.append("&type=");
         sb.append(type);
 
-//        System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_PATH"));
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless");
-//        options.addArguments("--no-sandbox");
-//        options.addArguments("--disable-gpu");
-//        options.addArguments("--disable-dev-shm-usage");
-//        options.addArguments("--remote-debugging-port=9222");
-//        options.setPageLoadStrategy(PageLoadStrategy.NONE);
-//        options.setBinary(System.getenv("GOOGLE_CHROME_BIN"));
-//
-//        ChromeDrvierEX driver = new ChromeDrvierEX(options);
-//
-//        driver.get(sb.toString());
-//        WebDriverWait waiter = new WebDriverWait(driver, 30);
-//        waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
+        System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_PATH"));
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--disable-dev-shm-usage");
+        options.setBinary(System.getenv("GOOGLE_CHROME_BIN"));
 
-        Future<byte[]> srcFile = exDriverService.getImage(sb.toString());
-        while(!srcFile.isDone()){
+        ChromeDrvierEX driver = new ChromeDrvierEX(options);
 
-        }
+        driver.get(sb.toString());
+        WebDriverWait waiter = new WebDriverWait(driver, 30);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("checker_true")));
 
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(srcFile.get());
+        byte[] srcFile = driver.getFullScreenshotAs(OutputType.BYTES);
+
+        driver.quit();
+
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(srcFile);
     }
 }

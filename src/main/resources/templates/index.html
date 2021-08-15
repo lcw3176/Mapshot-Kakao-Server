@@ -10,6 +10,7 @@
 
 </div>
 
+</div>
 </body>
 </html>
 
@@ -66,13 +67,16 @@
 
   var map = new kakao.maps.Map(container, options);
   map.setMapTypeId(maptype);
-
-
   map.relayout();
 
   kakao.maps.event.addListener(map, 'tilesloaded', function() {
-    document.getElementById("checker").setAttribute("id", "checker-true");
+    document.getElementById("checker").setAttribute("id", "checker_true");
   });
+
+  // function getElementByXpath(path) {
+  //   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  // }
+
 
 </script>
 </body>
