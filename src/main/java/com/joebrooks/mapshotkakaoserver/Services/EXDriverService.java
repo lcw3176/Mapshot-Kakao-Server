@@ -8,13 +8,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.Future;
 
 @Service
 public class EXDriverService {
 
     @Async("executor")
-    public byte[] getImage(String url) throws Exception {
+    public Future<byte[]> getImage(String url) throws Exception {
         System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_PATH"));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
@@ -35,6 +38,6 @@ public class EXDriverService {
 
         driver.quit();
 
-        return srcFile;
+        return new AsyncResult<>(srcFile);
     }
 }
