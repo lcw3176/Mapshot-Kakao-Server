@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,19 +39,14 @@ public class MainController {
         sb.append("&type=");
         sb.append(type);
 
-        //Open new tab
-        JavascriptExecutor jse = (JavascriptExecutor)service.getDriver();
-        jse.executeScript("window.open()");
 
-        //Switch to new tab
-        ArrayList<String> tabs = new ArrayList<String> (service.getDriver().getWindowHandles());
-        service.getDriver().switchTo().window(tabs.get(tabs.size() - 1));
         service.getDriver().get(sb.toString());
-        service.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
+        WebDriverWait waiter = new WebDriverWait(service.getDriver(), 30);
+        waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
 
         byte[] srcFile = service.getDriver().getFullScreenshotAs(OutputType.BYTES);
 
-        service.getDriver().close();
+        service.getDriver().quit();
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(srcFile);
     }
