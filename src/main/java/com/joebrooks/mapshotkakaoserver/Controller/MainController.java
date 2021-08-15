@@ -1,6 +1,5 @@
 package com.joebrooks.mapshotkakaoserver.Controller;
 
-import com.joebrooks.mapshotkakaoserver.Service.EXDriverService;
 import com.joebrooks.mapshotkakaoserver.Utils.ChromeDrvierEX;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -15,12 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/main")
 public class MainController {
-
-    private EXDriverService driverService;
-
-    public MainController(EXDriverService driverService){
-        this.driverService = driverService;
-    }
 
     @GetMapping
     public ResponseEntity getMapCapture(@RequestParam("lat") String lat,
