@@ -1,19 +1,25 @@
 package com.joebrooks.mapshotkakaoserver.Controller;
 
-import com.joebrooks.mapshotkakaoserver.Utils.ChromeDrvierEX;
+import com.joebrooks.mapshotkakaoserver.Services.EXDriverService;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @CrossOrigin("https://mapshot.netlify.app")
 @RestController
 @RequestMapping("/main")
 public class MainController {
+    private EXDriverService service;
+
+    public MainController(EXDriverService service){
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity getMapCapture(@RequestParam("lat") String lat,
@@ -32,22 +38,19 @@ public class MainController {
         sb.append("&type=");
         sb.append(type);
 
-        System.setProperty("webdriver.chrome.driver", System.getenv("CHROMEDRIVER_PATH"));
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--disable-dev-shm-usage");
-        options.setBinary(System.getenv("GOOGLE_CHROME_BIN"));
+        //Open new tab
+        JavascriptExecutor jse = (JavascriptExecutor)service.getDriver();
+        jse.executeScript("window.open()");
 
-        ChromeDrvierEX driver = new ChromeDrvierEX(options);
-        WebDriverWait waiter = new WebDriverWait(driver, 30);
+        //Switch to new tab
+        ArrayList<String> tabs = new ArrayList<String> (service.getDriver().getWindowHandles());
+        service.getDriver().switchTo().window(tabs.get(-1));
+        service.getDriver().get(sb.toString());
+        service.getWaiter().until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
 
-        driver.get(sb.toString());
-        waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
-        byte[] srcFile = driver.getFullScreenshotAs(OutputType.BYTES);
+        byte[] srcFile = service.getDriver().getFullScreenshotAs(OutputType.BYTES);
 
-        driver.quit();
+        service.getDriver().close();
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(srcFile);
     }
