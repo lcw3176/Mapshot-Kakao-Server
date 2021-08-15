@@ -3,6 +3,7 @@ package com.joebrooks.mapshotkakaoserver.Controller;
 import com.joebrooks.mapshotkakaoserver.Utils.ChromeDrvierEX;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,6 +40,7 @@ public class MainController {
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--remote-debugging-port=9222");
+        options.setPageLoadStrategy(PageLoadStrategy.NONE);
         options.setBinary(System.getenv("GOOGLE_CHROME_BIN"));
 
         ChromeDrvierEX driver = new ChromeDrvierEX(options);
