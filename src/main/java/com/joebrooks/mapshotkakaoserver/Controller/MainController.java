@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.Future;
+
 @CrossOrigin("https://mapshot.netlify.app")
 @RestController
 @RequestMapping("/main")
@@ -57,8 +59,11 @@ public class MainController {
 //        WebDriverWait waiter = new WebDriverWait(driver, 30);
 //        waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("checker-true")));
 
-        byte[] srcFile = exDriverService.getImage(sb.toString());
+        Future<byte[]> srcFile = exDriverService.getImage(sb.toString());
+        while(!srcFile.isDone()){
 
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(srcFile);
+        }
+
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(srcFile.get());
     }
 }
