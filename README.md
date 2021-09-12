@@ -36,7 +36,10 @@ web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/MapshotKakaoServer-0.0.
 
 * 한글 폰트 깨짐, 폰트 추가 필요
 * 서버 요청 없으면 잠들음, 깨우는 시간 꽤걸림
-    - [kaffeine](https://kaffeine.herokuapp.com/) 서비스로 해결
-    - 주기적으로 내 서버에 접속해서 잠드는걸 방지해 주는 서비스
+    - ~~[kaffeine](https://kaffeine.herokuapp.com/) 서비스로 해결~~
+    - ~~주기적으로 내 서버에 접속해서 잠드는걸 방지해 주는 서비스~~
+- 21.09.12 수정
+    - wakeup 컨트롤러를 따로 생성
+    - 이미지 호출 전 wakeup 컨트롤러로 요청 보낸 후, 응답이 오면 이미지를 호출하는 방식으로 변경
 
 
